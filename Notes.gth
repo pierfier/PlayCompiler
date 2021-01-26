@@ -1,0 +1,14 @@
+Tokenizer
+=========
+- Each token will be stored as an enum
+- Token struct :
+    - type (enum)- 
+        key: Func, if, let, in
+        id: function or variable name
+        logic: ||, &&, <, ==, > etc.
+        group: [], ()
+        sep: ","
+        lit: "asdfasf", 5, 5.0
+        
+    - value -
+        The stuff after the colons

@@ -1,10 +1,11 @@
 #include <iostream>
 #include <string>
+#include "tokenizer.h"
 
 using namespace std;
 
 int main(int argc, char * argv[]){
-    
+    // Store all of the source file filenames   
     string[] source_files;
 
     // Read in files to compile
@@ -14,5 +15,12 @@ int main(int argc, char * argv[]){
         if(string(argv[i][0] != "-")){
             source_files.push_back(string(argv[i+1]));
         }
+    }
+
+    // Front End stuff
+    vector<tokenizer> tokens;
+    
+    for(int i = 0; i < source_files.length(); ++i){
+        tokens.push_back(tokenizer(source_files.length()));
     }
 }

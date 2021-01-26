@@ -28,7 +28,7 @@ Arrays: [1, 2, 3, 4]
 Strings: "Hello"
     Concatenation - ++
 
-Logical expressions:
+Logical expressions(TODO still need to figure out exactly how this should be syntactically defined):
     if 
 
 Arithmetic expressions(This will be a lot of work to properly check at the abstract syntax tree):
