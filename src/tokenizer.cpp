@@ -25,9 +25,35 @@ void Tokenizer::tokenize(){
         string file_stream = file_contents;
         
         while(!file_stream.empty()){
+            Token token;
             switch(file_stream[0]){
                 
+                //NOTE this is a Bad way of doing, this. The switch cases should actually be used for individual characters.
+                //
+                //For the keywords, I should just keep reading until a space or separator is found.
+
+                case '(':
+                    token.type = sep;
+                    token.value = string("LParam");
+                    tokens_.push_back();
+                    
+                    //TODO remove front character
+                    //file_stream = 
+                    break;
+
+                case ')':
+                    token.type = sep;
+                    token.value = string("RParam");
+                    break;
+                
+                case '[':
+                    token,    
+                    break;
+
+                
+
                 //Func keyword
+                
                 case 'F':
                     if(file_stream.substr(0, 5) == string("Func ")){
                         Token token;
