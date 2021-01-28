@@ -6,7 +6,7 @@ using namespace std;
 
 int main(int argc, char * argv[]){
     // Store all of the source file filenames   
-    string[] source_files;
+    vector<string> source_files;
 
     // Read in files to compile
     for(int i = 0; i < argc; ++i){
@@ -18,9 +18,9 @@ int main(int argc, char * argv[]){
     }
 
     // Front End stuff
-    vector<tokenizer> tokens;
+    vector<Tokenizer> tokens;
     
     for(int i = 0; i < source_files.length(); ++i){
-        tokens.push_back(tokenizer(source_files.length()));
+        tokens.push_back(Tokenizer(source_files.length()));
     }
 }
