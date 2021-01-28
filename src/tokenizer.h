@@ -18,8 +18,12 @@ struct Token{
 // Operate and encapsulate
 class Tokenizer{
     public:
-
+        Tokenizer(string source_file);
+        void tokenize();
     private:
+        void get_text_characters(string file);
+        
+
         string file_contents_;
         vector<Token> tokens_;
 };

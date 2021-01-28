@@ -8,4 +8,4 @@ include_directories(src)
     
 add_definitions("-fPIC")    
     
-add_executable(imgurfetch ${SOURCES})    
+add_executable(playCompiler ${SOURCES})    
