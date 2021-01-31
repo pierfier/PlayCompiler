@@ -9,6 +9,8 @@ Tokenizer
         group: [], (), {}
         sep: ","
         lit: "asdfasf", 5, 5.0
-        
+        ** For string literals, the '\' will be recognized as an escape character
+    
+
     - value -
         The stuff after the colons from above showing what types everything is

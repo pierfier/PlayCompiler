@@ -14,6 +14,8 @@ struct Token{
     string value;
 };
 
+// Help for checking identifiers
+char indi_chars[] = {'[', ']', '(', ')', '{', '}', ',', '"'};
 
 // Operate and encapsulate
 class Tokenizer{
@@ -23,7 +25,7 @@ class Tokenizer{
     private:
         void get_text_characters(string file);
         string remove_front(string stream);
-
+        string get_string_literal(string stream);
         string file_contents_;
         vector<Token> tokens_;
 };

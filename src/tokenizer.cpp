@@ -30,6 +30,24 @@ string Tokenizer::remove_front(string stream){
     }
 }
 
+//Read in until another unescaped '\' character appears in the string
+string Tokenizer::get_string_literal(string stream){
+    string literal("");
+    string f_char;
+
+    while(stream[0] != '"'){
+        f_char = remove_front(stream);
+        
+        if(f_char == string("\\")){
+            literal += remove_front(stream);
+        }else{
+            literal += f_char;
+        }
+    }
+
+    return literal;
+}
+
 // Take file contents string and start to tokenize
 void Tokenizer::tokenize(){
     if(!file_contents_.empty()){
@@ -84,9 +102,20 @@ void Tokenizer::tokenize(){
                     tokens_.push_back(token);
                     file_stream = remove_front(file_stream);
                     break;
+                
+                    //This made need some debugging. I will do a string literal 
+                case '"':
+                    file_stream = remove_front(file_stream);
+                    token.t_type = lit;
+                    token.value = get_string_literal(file_stream);
+                    tokens_.push_back(token);
+                    break;
+
 
                 // Check full words
                 default:
+                    
+
                 //Func keyword
                 //TODO should probably do this after switch statement
                 case 'F':
