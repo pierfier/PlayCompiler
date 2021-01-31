@@ -10,12 +10,15 @@ int main(int argc, char * argv[]){
     vector<string> source_files;
 
     // Read in files to compile
-    for(int i = 0; i < argc; ++i){
+    for(int i = 1; i < argc; ++i){
         
         // If argument is not a dash, it must be a filename not a flag
         if(argv[i][0] != '-'){
-            source_files.push_back(string(argv[i+1]));
+            source_files.push_back(string(argv[i]));
+        }else{
+            //TODO use option flags
         }
+        
     }
 
     // Front End stuff

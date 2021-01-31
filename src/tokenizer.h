@@ -22,7 +22,7 @@ class Tokenizer{
         void tokenize();
     private:
         void get_text_characters(string file);
-        
+        string remove_front(string stream);
 
         string file_contents_;
         vector<Token> tokens_;

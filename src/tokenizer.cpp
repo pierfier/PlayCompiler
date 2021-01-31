@@ -21,6 +21,15 @@ void Tokenizer::get_text_characters(string f){
     in.close();
 }
 
+//Pop front of the string
+string Tokenizer::remove_front(string stream){
+    if(stream.length() >= 2){
+        return stream.substr(1, stream.length() - 1);
+    }else{
+        return string("");
+    }
+}
+
 // Take file contents string and start to tokenize
 void Tokenizer::tokenize(){
     if(!file_contents_.empty()){
@@ -30,32 +39,56 @@ void Tokenizer::tokenize(){
             Token token;
             switch(file_stream[0]){
                 
-                //NOTE this is a Bad way of doing, this. The switch cases should actually be used for individual characters.
-                //
-                //For the keywords, I should just keep reading until a space or separator is found.
-
                 case '(':
-                    token.t_type = sep;
+                    token.t_type = group;
                     token.value = string("LParam");
                     tokens_.push_back(token);
-                    
-                    //TODO remove front character
-                    file_stream = file_stream.substr(1, file_stream.length() - 1); // Is this the best way to remove the first character and keep the string
+                    file_stream = remove_front(file_stream);
                     break;
 
                 case ')':
-                    token.t_type = sep;
+                    token.t_type = group;
                     token.value = string("RParam");
+                    tokens_.push_back(token);
+                    file_stream = remove_front(file_stream);
                     break;
                 
                 case '[':
-                    token.t_type = sep;    
+                    token.t_type = group;    
+                    token.value = string("RBracket");
+                    tokens_.push_back(token);
+                    file_stream = remove_front(file_stream);
                     break;
 
-                
+                case ']':
+                    token.t_type = group;    
+                    token.value = string("LBracket");
+                    tokens_.push_back(token);
+                    file_stream = remove_front(file_stream);
+                    break;
+                case '{':
+                    token.t_type = group;    
+                    token.value = string("LCurl");
+                    tokens_.push_back(token);
+                    file_stream = remove_front(file_stream);
+                    break;
+                case '}':
+                    token.t_type = group;    
+                    token.value = string("RCurl");
+                    tokens_.push_back(token);
+                    file_stream = remove_front(file_stream);
+                    break;
+                case ',':
+                    token.t_type = sep;    
+                    token.value = string("Comma");
+                    tokens_.push_back(token);
+                    file_stream = remove_front(file_stream);
+                    break;
 
+                // Check full words
+                default:
                 //Func keyword
-                
+                //TODO should probably do this after switch statement
                 case 'F':
                     if(file_stream.substr(0, 5) == string("Func ")){
                         Token token;

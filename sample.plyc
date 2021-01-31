@@ -1,0 +1,6 @@
+Func int addNums(arg1, arg2){
+    addNums = arg1 + arg2
+}
+
+main = do
+    (addNums 1 2)

@@ -11,11 +11,11 @@ Make a compiler for a language that is a simple functional programming langauge 
 
 Defining a named function:
 
-Func retType myfunc(arg1, arg2)(
+Func retType myfunc(arg1, arg2){
     let var1 = ..... & let var2
     in
-
-)
+    mfunc = var1 * var2
+}
 
 
 Anonymous functions:
