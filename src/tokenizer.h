@@ -34,7 +34,7 @@ class Tokenizer{
     private:
         // Internal functions
         void get_text_characters(string file);
-        string remove_front(string stream);
+        string pop_front(string & stream);
         string get_string_literal(string & stream, int line_num);
         string read_num(string & stream, int line_num);
 

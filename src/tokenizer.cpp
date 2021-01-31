@@ -34,7 +34,7 @@ void Tokenizer::get_text_characters(string f){
 //Pop front of the string
 //TODO change for all calls to this function!!!
 //return the popped value and chop the string as a side effect
-string Tokenizer::remove_front(string & stream){
+string Tokenizer::pop_front(string & stream){
     string f_char;
     f_char = string(stream[0]);
     
@@ -55,7 +55,7 @@ string Tokenizer::read_num(string & stream, int line_num){
     // Concatenate all digits and decimal points
     while(isdigit(stream[0]) || stream[0] == '.'){
         num += stream[0];
-        stream = remove_front(stream);
+        stream = pop_front(stream);
     }
 
     return num;
@@ -69,12 +69,12 @@ string Tokenizer::get_string_literal(string & stream, int line_num){
 
     while(stream[0] != '"'){
         f_char = stream[0]; 
-        stream = remove_front(stream);
+        stream = pop_front(stream);
         
         //Escape character, ignore next character
         if(f_char == string("\\") && stream.length() > 0){
             literal += stream[0];
-            stream = remove_front(stream);
+            stream = pop_front(stream);
         
         // Reached end of file and no string literal enclosure
         }else if(f_char == string("\\") && stream.length() == 0){
@@ -105,51 +105,51 @@ void Tokenizer::tokenize(){
                     token.t_type = group;
                     token.value = string("LParam");
                     tokens_.push_back(token);
-                    file_stream = remove_front(file_stream);
+                    file_stream = pop_front(file_stream);
                     break;
 
                 case ')':
                     token.t_type = group;
                     token.value = string("RParam");
                     tokens_.push_back(token);
-                    file_stream = remove_front(file_stream);
+                    file_stream = pop_front(file_stream);
                     break;
                 
                 case '[':
                     token.t_type = group;    
                     token.value = string("RBracket");
                     tokens_.push_back(token);
-                    file_stream = remove_front(file_stream);
+                    file_stream = pop_front(file_stream);
                     break;
 
                 case ']':
                     token.t_type = group;    
                     token.value = string("LBracket");
                     tokens_.push_back(token);
-                    file_stream = remove_front(file_stream);
+                    file_stream = pop_front(file_stream);
                     break;
                 case '{':
                     token.t_type = group;    
                     token.value = string("LCurl");
                     tokens_.push_back(token);
-                    file_stream = remove_front(file_stream);
+                    file_stream = pop_front(file_stream);
                     break;
                 case '}':
                     token.t_type = group;    
                     token.value = string("RCurl");
                     tokens_.push_back(token);
-                    file_stream = remove_front(file_stream);
+                    file_stream = pop_front(file_stream);
                     break;
                 case ',':
                     token.t_type = sep;    
                     token.value = string("Comma");
                     tokens_.push_back(token);
-                    file_stream = remove_front(file_stream);
+                    file_stream = pop_front(file_stream);
                     break;
                 
                     //This made need some debugging. I will do a string literal 
                 case '"':
-                    file_stream = remove_front(file_stream);
+                    file_stream = pop_front(file_stream);
                     token.t_type = lit;
                     token.value = get_string_literal(file_stream, line_count);
                     tokens_.push_back(token);
@@ -157,7 +157,7 @@ void Tokenizer::tokenize(){
 
                 // Ignore newlines and update the line count
                 case '\n':
-                    file_stream = remove_front(file_stream);
+                    file_stream = pop_front(file_stream);
                     ++line_count;
                     break;
                 
@@ -172,7 +172,7 @@ void Tokenizer::tokenize(){
                         
                     }else{
                         cout << "Unknown character" << file_stream[0] << "\n";
-                        file_stream = remove_front(file_stream);
+                        file_stream = pop_front(file_stream);
                         // Completely kill the compiler
                         exit(0);
                     }
