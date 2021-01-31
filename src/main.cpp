@@ -28,5 +28,16 @@ int main(int argc, char * argv[]){
         tokens.push_back(Tokenizer(source_files[i]));
     }
 
+    //Tokenize all of the source files
+    //
+    //TODO may need to do a glob where we store all of the tokens in one spot across all files, and then just have a single main file that starts everything
+    for(int i = 0; i < tokens.size(); ++i){
+        tokens[i].tokenize();
+    }
+
+    //DEBUG show all of the read tokens
+    tokens[0].print_tokens();
+    
+
     return 0;
 }

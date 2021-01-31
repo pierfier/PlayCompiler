@@ -4,7 +4,7 @@ Tokenizer
 - Token struct :
     - type (enum)- 
         key: Func, if, let, in
-        id: function or variable name
+        id: function or variable name, cannot start with a number
         logic: ||, &&, <, ==, > etc.
         group: [], (), {}
         sep: ","
