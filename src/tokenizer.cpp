@@ -32,7 +32,6 @@ void Tokenizer::get_text_characters(string f){
 }
 
 //Pop front of the string
-//TODO change for all calls to this function!!!
 //return the popped value and chop the string as a side effect
 string Tokenizer::pop_front(string & stream){
     string f_char;
@@ -48,9 +47,31 @@ string Tokenizer::pop_front(string & stream){
 }
 
 
+// Read in a word that is only consisted of numbers or characters
+// Assumes that user already checked that the first character is a letter
+// Kills the program if there is a symbolage that is not recognized
+string Tokenizer::read_word(string & stream, int line_num){
+    string word;
+
+    
+
+    // Concatenate all digits and decimal points
+    while(ischaracter(stream[0] || isdigit(stream[0]))){
+        word += stream[0];
+        stream = pop_front(stream);
+    }
+
+    return word;
+}
+
 // Read in a number literal and remove all of the 
 string Tokenizer::read_num(string & stream, int line_num){
     string num;
+
+    // Decimal should only be found once
+    // TODO need to implement this ^
+    bool pointFound = false;
+
 
     // Concatenate all digits and decimal points
     while(isdigit(stream[0]) || stream[0] == '.'){
@@ -93,7 +114,9 @@ void Tokenizer::tokenize(){
         string file_stream = file_contents_;
         
         int line_count = 1;
-
+        
+        // Keep reading word until a separator, grouping, or space is encountered
+        string word; 
         while(!file_stream.empty()){
             //DEBUG
             cout << "Going through loop" << "\n";
@@ -169,12 +192,21 @@ void Tokenizer::tokenize(){
                     // word is a number sequence, throw error if it is not
                     if(isdigit(file_stream[0])){
                         word = read_num(file_stream, line_count);
-                        
                     }else{
-                        cout << "Unknown character" << file_stream[0] << "\n";
-                        file_stream = pop_front(file_stream);
-                        // Completely kill the compiler
-                        exit(0);
+                        //Read characters until a separator or grouping is found
+                        //Preserve that separator, grouping, or space character
+                        word = read_word(file_stream, line_count);
+                        
+                        // Word is empty meaning symbolage is not recognized
+                        if(word.empty()){
+                            cout << "Unknown character" << file_stream[0] << "\n";
+                            
+                            // Completely kill the compiler
+                            exit(0);
+                        }
+
+
+
                     }
             }
         }
