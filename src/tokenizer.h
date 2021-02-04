@@ -37,6 +37,7 @@ class Tokenizer{
         string pop_front(string & stream);
         string get_string_literal(string & stream, int line_num);
         string read_num(string & stream, int line_num);
+        string read_word(string & stream, int line_num);
 
         // Variables
         string source_filename;

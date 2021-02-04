@@ -53,8 +53,6 @@ string Tokenizer::pop_front(string & stream){
 string Tokenizer::read_word(string & stream, int line_num){
     string word;
 
-    
-
     // Concatenate all digits and decimal points
     while(ischaracter(stream[0] || isdigit(stream[0]))){
         word += stream[0];
@@ -199,9 +197,23 @@ void Tokenizer::tokenize(){
                             
                             // Completely kill the compiler
                             exit(0);
+                            
+                        // Word is complete, so check if its a keyword
+                        }else{
+                            
+                            // Word is a keyword
+                            if(word == string("Func") || word == string("if") || word == string("let") || word == string("in") || word == string("main")){
+                                token.t_type = key;
+                                token.value = word;
+                                tokens_.push_back(token);
+                            
+                            // Word is an identifier
+                            }else{
+                                token.t_type = id;
+                                token.value = word;
+                                tokens_.push_back(token);
+                            }
                         }
-
-
 
                     }
             }
