@@ -1,5 +1,6 @@
 #include <iostream>
 #include <fstream>
+#include<ctype.h>
 #include <string>
 #include "tokenizer.h"
 
@@ -52,12 +53,17 @@ string Tokenizer::pop_front(string & stream){
 // Kills the program if there is a symbolage that is not recognized
 string Tokenizer::read_word(string & stream, int line_num){
     string word;
-
+    
     // Concatenate all digits and decimal points
-    while(ischaracter(stream[0] || isdigit(stream[0]))){
+    while(isalpha(stream[0]) || isdigit(stream[0])){
         word += stream[0];
         stream = pop_front(stream);
+        
+        //DEBUG
+        cout << "In loop read word\n";
+        cout << stream[0];
     }
+    
 
     return word;
 }
