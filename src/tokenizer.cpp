@@ -71,9 +71,19 @@ string Tokenizer::read_num(string & stream, int line_num){
     // TODO need to implement this ^
     bool pointFound = false;
 
-
     // Concatenate all digits and decimal points
     while(isdigit(stream[0]) || stream[0] == '.'){
+        
+        // Make sure there is only one decimal point
+        if(stream[0] == '.' ){
+            if(pointFound){
+                cout << "ERROR [Lexer]: Numbers cannot have more than one decimal point" << endl;
+                exit(0);
+            }else{
+                pointFound = true;
+            }
+        }
+
         num += pop_front(stream);
     }
 
@@ -160,7 +170,6 @@ void Tokenizer::tokenize(){
                 case ',':
                     token.t_type = sep;    
                     token.value = string("Comma");
-                    cout << "asdfdaf " << enum_map[token.t_type] << "\n";
                     tokens_.push_back(token);
                     pop_front(file_stream);
                     break;
@@ -220,8 +229,9 @@ void Tokenizer::tokenize(){
                     // word is a number sequence, throw error if it is not
                     if(isdigit(file_stream[0])){
                         word = read_num(file_stream, line_count);
-                        
-                        //TODO add number token types
+                        token.t_type = lit;
+                        token.value = word;
+                        tokens_.push_back(token);
 
                     }else{
                         //Read characters until a separator or grouping is found
@@ -230,8 +240,7 @@ void Tokenizer::tokenize(){
                         
                         // Word is empty meaning symbolage is not recognized
                         if(word.empty()){
-                            cout << "Unknown character -" << file_stream[0] << "-\n";
-                            
+                            cout << "ERROR [Lexer]: Unknown character -" << file_stream[0] << "-\n";
                             // Completely kill the compiler
                             exit(0);
                             
