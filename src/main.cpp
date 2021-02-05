@@ -37,7 +37,6 @@ int main(int argc, char * argv[]){
 
     //DEBUG show all of the read tokens
     tokens[0].print_tokens();
-    
 
     return 0;
 }

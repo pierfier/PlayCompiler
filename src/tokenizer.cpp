@@ -11,7 +11,7 @@ using namespace std;
 // Intialize the individual characters
 char indi_chars[] = {'[', ']', '(', ')', '{', '}', ',', '"'};
 
-string enum_map[] = {"key", "identifier", "logic", "group", "separator", "literal"};
+string enum_map[] = {"key", "identifier", "operator", "logic", "group", "separator", "literal"};
 //-- End of global variable definitions
 
 
@@ -37,9 +37,10 @@ void Tokenizer::get_text_characters(string f){
 string Tokenizer::pop_front(string & stream){
     string f_char;
     f_char = stream[0];
-    
+
     if(stream.length() >= 2){
         stream = stream.substr(1, stream.length() - 1);
+        
     }else{
         stream = "";
     }
@@ -56,14 +57,8 @@ string Tokenizer::read_word(string & stream, int line_num){
     
     // Concatenate all digits and decimal points
     while(isalpha(stream[0]) || isdigit(stream[0])){
-        word += stream[0];
-        stream = pop_front(stream);
-        
-        //DEBUG
-        cout << "In loop read word\n";
-        cout << stream[0];
+        word += pop_front(stream);
     }
-    
 
     return word;
 }
@@ -119,8 +114,6 @@ void Tokenizer::tokenize(){
         // Keep reading word until a separator, grouping, or space is encountered
         string word; 
         while(!file_stream.empty()){
-            //DEBUG
-            cout << "Going through loop, line " << line_count << "\n";
 
             Token token;
             switch(file_stream[0]){
@@ -167,10 +160,41 @@ void Tokenizer::tokenize(){
                 case ',':
                     token.t_type = sep;    
                     token.value = string("Comma");
+                    cout << "asdfdaf " << enum_map[token.t_type] << "\n";
                     tokens_.push_back(token);
                     pop_front(file_stream);
                     break;
-                
+                case '=':
+                    token.t_type = op;    
+                    token.value = string("Assign");
+                    tokens_.push_back(token);
+                    pop_front(file_stream);
+                    break;
+                case '+':
+                    token.t_type = op;    
+                    token.value = string("Add");
+                    tokens_.push_back(token);
+                    pop_front(file_stream);
+                    break;
+                case '-':
+                    token.t_type = op;    
+                    token.value = string("Subtract");
+                    tokens_.push_back(token);
+                    pop_front(file_stream);
+                    break;
+                case '*':
+                    token.t_type = op;    
+                    token.value = string("Multiply");
+                    tokens_.push_back(token);
+                    pop_front(file_stream);
+                    break;
+                case '/':
+                    token.t_type = op;    
+                    token.value = string("Divide");
+                    tokens_.push_back(token);
+                    pop_front(file_stream);
+                    break;
+
                     //This made need some debugging. I will do a string literal 
                 case '"':
                     pop_front(file_stream);
@@ -184,6 +208,10 @@ void Tokenizer::tokenize(){
                     pop_front(file_stream);
                     ++line_count;
                     break;
+                case ' ':
+                    pop_front(file_stream);
+                    ++line_count;
+                    break;
 
                 // Check for words, i.e. keywords and identifiers, and numbrs
                 default:
@@ -192,6 +220,9 @@ void Tokenizer::tokenize(){
                     // word is a number sequence, throw error if it is not
                     if(isdigit(file_stream[0])){
                         word = read_num(file_stream, line_count);
+                        
+                        //TODO add number token types
+
                     }else{
                         //Read characters until a separator or grouping is found
                         //Preserve that separator, grouping, or space character
@@ -199,7 +230,7 @@ void Tokenizer::tokenize(){
                         
                         // Word is empty meaning symbolage is not recognized
                         if(word.empty()){
-                            cout << "Unknown character" << file_stream[0] << "\n";
+                            cout << "Unknown character -" << file_stream[0] << "-\n";
                             
                             // Completely kill the compiler
                             exit(0);
@@ -208,7 +239,7 @@ void Tokenizer::tokenize(){
                         }else{
                             
                             // Word is a keyword
-                            if(word == string("Func") || word == string("if") || word == string("let") || word == string("in") || word == string("main")){
+                            if(word == string("Func") || word == string("if") || word == string("let") || word == string("in") || word == string("main") || word == string("do")){
                                 token.t_type = key;
                                 token.value = word;
                                 tokens_.push_back(token);

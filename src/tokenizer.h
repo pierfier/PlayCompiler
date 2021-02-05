@@ -8,7 +8,7 @@ using namespace std;
 
 // Token definitions
 
-enum TokenType {key, id, logic, group, sep, lit};
+enum TokenType {key, id, op, logic, group, sep, lit};
 // Token structure:
 //  -- The type
 //  -- the value

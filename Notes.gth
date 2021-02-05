@@ -5,6 +5,7 @@ Tokenizer
     - type (enum)- 
         key: Func, if, let, in
         id: function or variable name, cannot start with a number
+        op: =, +, -, *, /
         logic: ||, &&, <, ==, > etc.
         group: [], (), {}
         sep: ","
