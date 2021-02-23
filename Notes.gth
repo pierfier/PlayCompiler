@@ -15,3 +15,13 @@ Tokenizer
 
     - value -
         The stuff after the colons from above showing what types everything is
+
+
+Parser
+======
+(Will try to write out the grammer for the entire language here)
+
+Program -> *<Function> Main      "Read as some or none Function declarations, and then a main function"
+Function ->
+Main ->
+

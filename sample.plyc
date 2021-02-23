@@ -1,4 +1,4 @@
-Func addNums(arg1, arg2){
+Func addNums( arg1, arg2, num3 ){
     addNums = arg1 + arg2
 }
 
