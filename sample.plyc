@@ -3,4 +3,4 @@ Func addNums( arg1, arg2, num3 ){
 }
 
 main = do
-    (addNums 1 2)
+    (addNums 1 2 4)

@@ -21,7 +21,24 @@ Parser
 ======
 (Will try to write out the grammer for the entire language here)
 
-Program -> *<Function> Main      "Read as some or none Function declarations, and then a main function"
-Function ->
-Main ->
+Notation Symblage for grammer:
+------------------------------
 
+quotes indicate the literal string to be present in the grammer. 
+Angle brackets refer to a left hand expression
+pipes means either elements
+
+Program -> *<Function> Main      'Read as some or none Function declarations, and then a main function'
+Function -> "Func"
+Main -> "Main" "=" "do" <Commands>
+
+Commands -> <Let expr> | <If expr> | <Function call>
+Function call -> 'Need to explicitly implement this as auto curry, anything until next call'
+
+
+
+
+Main Library Functions
+======================
+- I am wondering if standard library functions are directly written into the compiler binary?
+**For example, tail() will be recognized by the front-end, and then there is already code that generates the code block that does the tail() functionality**
