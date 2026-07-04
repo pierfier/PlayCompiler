@@ -1,0 +1,8 @@
+Func simpl(n){
+     n
+}
+
+main = do{
+    	print 5
+	print (simpl 5)
+       }

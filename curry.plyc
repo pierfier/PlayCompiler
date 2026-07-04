@@ -1,0 +1,7 @@
+Func add(arg1, arg2){
+     arg1 + arg2
+}
+
+main = do
+     let x = add 3 in
+     	print (x 5)
