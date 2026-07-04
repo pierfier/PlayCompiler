@@ -1,11 +1,13 @@
 #include <iostream>
 #include <string>
 #include "tokenizer.h"
+#include "parser.h"
 #include <vector>
 
 using namespace std;
 
 int main(int argc, char * argv[]){
+    cout << "Start Compilation" << endl;
     // Store all of the source file filenames   
     vector<string> source_files;
 
@@ -35,8 +37,17 @@ int main(int argc, char * argv[]){
         tokens[i].tokenize();
     }
 
+    // Parse the tokens for now in a single file
+    Parser p = Parser(tokens[0].get_tokens());
+
+    p.parse_program();
+
     //DEBUG show all of the read tokens
-    tokens[0].print_tokens();
+    //tokens[0].print_tokens();
+      
+    // Parse the tokens here
+    
+    cout << "End Compilation" ;
 
     return 0;
 }

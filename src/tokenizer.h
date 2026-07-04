@@ -8,7 +8,7 @@ using namespace std;
 
 // Token definitions
 
-enum TokenType {key, id, op, logic, group, sep, lit};
+enum class TokenType {key, id, op, logic, group, sep, lit};
 // Token structure:
 //  -- The type
 //  -- the value
@@ -31,6 +31,7 @@ class Tokenizer{
         Tokenizer(string source_file);
         void tokenize();
         void print_tokens();
+        const vector<Token> & get_tokens() const;
     private:
         // Internal functions
         void get_text_characters(string file);
